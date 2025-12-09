@@ -7,7 +7,7 @@ global:
   aws:
     region: ap-southeast-1
   domainFilter: aws.cci.nanophate.com
-  domainName: "aws.cci.nanophate.com"
+  domainName: "circleci.aws.cci.nanophate.com"
   otel:
     enabled: true
     collector_host: "jaeger-collector.monitoring.svc.cluster.local"
@@ -48,7 +48,7 @@ machine_provisioner:
 # Hack. We are running kong for cert management but need to use annotation to allow external-dns to manage the DNS record.
 nginx:
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: aws.cci.nanophate.com, app.aws.cci.nanophate.com
+    external-dns.alpha.kubernetes.io/hostname: circleci.aws.cci.nanophate.com, app.circleci.aws.cci.nanophate.com
   resources:
     requests:
       cpu: 50m
