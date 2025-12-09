@@ -1,13 +1,13 @@
 circleci-server-version: "4.9.0"
 
 argocd:
-  repository: https://github.com/kurtassad/support-cci-server-setup.git
+  repository: https://github.com/nanophate-cci/support-cci-server-setup.git
 
 global:
   aws:
     region: ap-southeast-1
-  domainFilter: ka-cci.com
-  domainName: "circleci.ka-cci.com"
+  domainFilter: aws.cci.nanophate.com
+  domainName: "aws.cci.nanophate.com"
   otel:
     enabled: true
     collector_host: "jaeger-collector.monitoring.svc.cluster.local"
@@ -32,12 +32,12 @@ machine_provisioner:
       assignPublicIP: true
       irsaRole: "eks-pod-identity"
       subnets:
-        - "subnet-0662628b13ad03f8e"
-        - "subnet-04c71fecd44779209"
-        - "subnet-0b19f54e310f3b527"
-      securityGroupId: "sg-0a6b9eee01d0ddcc6"
+        - "subnet-0a7b0940d1356a2a3"
+        - "subnet-0c47bb328f01010c1"
+        - "subnet-0572d0de429e15ecb"
+      securityGroupId: "sg-03fd53bde1a94d926"
       tags:
-        owner: "kurtis.assad@circleci.com"
+        owner: "naoya@circleci.com"
         cost_center: "sm"
         Team: "customer_engineering"
         asset_criticality: "false"
@@ -48,7 +48,7 @@ machine_provisioner:
 # Hack. We are running kong for cert management but need to use annotation to allow external-dns to manage the DNS record.
 nginx:
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: circleci.ka-cci.com, app.circleci.ka-cci.com
+    external-dns.alpha.kubernetes.io/hostname: aws.cci.nanophate.com, app.aws.cci.nanophate.com
   resources:
     requests:
       cpu: 50m
@@ -60,7 +60,7 @@ nginx:
 kong:
   acme:
     enabled: true
-    email: kurtis.assad@circleci.com
+    email: naoya@circleci.com
   resources:
     requests:
       cpu: 50m
@@ -70,7 +70,7 @@ kong:
       memory: 2Gi
 
 object_storage:
-  bucketName: "ka-cci-circleci-dlc"
+  bucketName: "nao-tf-circleci-dlc"
   s3:
     enabled: true
     endpoint: https://s3.ap-southeast-1.amazonaws.com
@@ -79,7 +79,6 @@ object_storage:
 
 github:
   enterprise: false
-  hostname: ka-cci.com
 
 # Below are the rest, usually don't need to change these
 postgresql:
@@ -96,6 +95,7 @@ rabbitmq:
 tink:
   enabled: true
 nomad:
+  serverHostname: circleci.aws.cci.nanophate.com
   server:
     replicas: 3
     rpc:

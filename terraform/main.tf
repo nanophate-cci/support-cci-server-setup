@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
-    bucket = "ka-cci-terraform-state"
-    key    = "ka-cci/default/terraform.tfstate"
+    bucket = "naoya-cci-terraform-state"
+    key    = "naoya-cci/default/terraform.tfstate"
     region = "ap-southeast-1"
   }
   required_providers {
@@ -18,13 +18,13 @@ terraform {
 
 # Configure params here
 locals {
-  cluster_name   = "ka-cci"
+  cluster_name   = "nao-tf"
   region         = "ap-southeast-1"
-  email          = "kurtis.assad@circleci.com"
+  email          = "naoya@circleci.com"
   critical_until = "2026-12-30"
 
   # Need to get this from route53
-  hosted_zones = ["arn:aws:route53:::hostedzone/Z09353691DH93X3LBRCKB"]
+  hosted_zones = ["arn:aws:route53:::hostedzone/Z09260361BLT6DTF6JROL"]
 }
 
 # Derived params

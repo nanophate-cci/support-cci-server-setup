@@ -8,7 +8,7 @@ module "nomad_clients" {
   subnet = module.vpc.public_subnets[0]
   vpc_id = module.vpc.vpc_id
 
-  nomad_server_hostname = "circleci.ka-cci.com"
+  nomad_server_hostname = "circleci.aws.cci.nanophate.com"
 
   # VPC magic, DNS server is always on VPC CIDR base + 2
   dns_server    = cidrhost(module.vpc.vpc_cidr_block, 2)
@@ -25,7 +25,7 @@ module "nomad_clients" {
 
   enable_irsa = {}
 
-  ssh_key  = file("~/.ssh/id_ed25519.pub")
+  ssh_key  = file("./naoya-cci-server-setup-nomad.pub")
   basename = local.cluster_name
 
   enable_imdsv2 = "required"
