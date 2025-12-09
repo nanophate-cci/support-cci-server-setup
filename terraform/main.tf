@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
-    bucket = "ka-cci-terraform"
+    bucket = "ka-cci-terraform-state"
     key    = "ka-cci/default/terraform.tfstate"
-    region = "ap-southeast-1"
+    region = "ap-northeast-1"
   }
   required_providers {
     aws = {
@@ -19,7 +19,7 @@ terraform {
 # Configure params here
 locals {
   cluster_name   = "ka-cci"
-  region         = "ap-southeast-1"
+  region         = "ap-northeast-1"
   email          = "kurtis.assad@circleci.com"
   critical_until = "2026-12-30"
 

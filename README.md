@@ -20,7 +20,7 @@
    - Download secrets from [1Password](https://start.1password.com/open/i?a=RF46QVWYHJALTBFLBRYFJHHCXU&v=wu3kikbk6yafbtv62qom3ebt5m&i=2cuzpbzqowbhhsn4j7ekp4h2wy&h=circleci.1password.com) and unzip to root folder. Should be support-cci-server-setup/secrets/
 
 3. **Create S3 bucket for Terraform state**
-   - Create an S3 bucket in your AWS account (e.g., `ka-cci-terraform`)
+   - Create an S3 bucket in your AWS account (e.g., `ka-cci-terraform-state`)
    - Update the `backend "s3"` block in `terraform/main.tf` with your bucket name
 
 4. **Modify Terraform configuration**
@@ -57,7 +57,7 @@
      - Update `global.domain` and `global.domainName` with your domain
      - Update `machine_provisioner.providers.ec2.subnets` with subnet IDs from Terraform output
      - Update `machine_provisioner.providers.ec2.securityGroupId` with security group ID from Terraform output
-     - Update `object_storage.bucketName` to match your S3 bucket name
+     - Update `object_storage.bucketName` to match your S3 bucket name. By default it will be `<cluster-name>-circleci-dlc`
 
 10. **Run Bootstrap Script**
    ```bash
@@ -84,8 +84,9 @@ Monitoring will be set up after bootstrap. Run `./portforward.sh` to port-forwar
 
 You can then navigate to:
 
-- jaeger: http://localhost:7070
 - argocd: https://localhost:8080
+   - User/Pass is admin/$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+- jaeger: http://localhost:7070
 - prometheus: https://localhost:9090
 - nomad-server-ui: http://localhost:4646/ui/jobs
 
