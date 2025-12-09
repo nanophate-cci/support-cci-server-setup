@@ -20,7 +20,7 @@
    - Download secrets from [1Password](https://start.1password.com/open/i?a=RF46QVWYHJALTBFLBRYFJHHCXU&v=wu3kikbk6yafbtv62qom3ebt5m&i=2cuzpbzqowbhhsn4j7ekp4h2wy&h=circleci.1password.com) and unzip to root folder. Should be support-cci-server-setup/secrets/
 
 3. **Create S3 bucket for Terraform state**
-   - Create an S3 bucket in your AWS account (e.g., `ka-cci-terraform`)
+   - Create an S3 bucket in your AWS account (e.g., `ka-cci-terraform-state`)
    - Update the `backend "s3"` block in `terraform/main.tf` with your bucket name
 
 4. **Modify Terraform configuration**
